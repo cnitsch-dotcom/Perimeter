@@ -1,0 +1,65 @@
+{
+  "_comment": "Configurazione per lemniscata.py. I campi _comment servono come note esplicative e vengono ignorati dallo script.",
+  "seed": null,
+  "_comment_seed": "Seed casuale per riproducibilita'. Usa null per generarne uno automaticamente in base al tempo corrente.",
+  "shape": {
+    "_comment": "Parametri geometrici della lemniscata di Bernoulli r^2 = a^2 cos(2 theta).",
+    "a": 1.0,
+    "_comment_a": "Parametro di scala della curva. Area esatta = a^2. Perimetro esatto = 5.24411510858424 * a."
+  },
+  "model": {
+    "_comment": "Parametri architetturali della rete che approssima il campo vettoriale phi.",
+    "hidden_dim": 128,
+    "_comment_hidden_dim": "Numero di neuroni in ciascun layer nascosto.",
+    "layers": 4,
+    "_comment_layers": "Numero di layer nascosti della rete."
+  },
+  "training": {
+    "_comment": "Parametri usati durante l'addestramento del modello.",
+    "learning_rate": 0.001,
+    "_comment_learning_rate": "Learning rate dell'ottimizzatore Adam.",
+    "iterations": 5000,
+    "_comment_iterations": "Numero totale di iterazioni di training.",
+    "batch_size": 8192,
+    "_comment_batch_size": "Numero di punti interni usati a ogni iterazione dopo il filtraggio.",
+    "oversample_factor": 5,
+    "_comment_oversample_factor": "Moltiplicatore dei punti estratti nel box prima di tenere solo quelli interni alla lemniscata.",
+    "log_every": 500,
+    "_comment_log_every": "Frequenza con cui stampare le informazioni di training.",
+    "bounding_box": {
+      "_comment": "Box di campionamento usato durante il training. Conviene racchiudere bene entrambi i lobi.",
+      "x_min": -1.1,
+      "x_max": 1.1,
+      "y_min": -0.8,
+      "y_max": 0.8
+    }
+  },
+  "evaluation": {
+    "_comment": "Parametri usati nella stima finale Monte Carlo di area e perimetro.",
+    "n_samples": 500000,
+    "_comment_n_samples": "Numero target di punti interni da usare per stimare il perimetro finale.",
+    "batch_size": 5000,
+    "_comment_batch_size": "Dimensione dei batch usati in valutazione per non saturare la memoria.",
+    "bounding_box": {
+      "_comment": "Box di campionamento usato in valutazione per stimare area e perimetro finali.",
+      "x_min": -1.0,
+      "x_max": 1.0,
+      "y_min": -0.75,
+      "y_max": 0.75
+    }
+  },
+  "penalty": {
+    "_comment": "Penalizzazione per limitare la concentrazione della divergenza.",
+    "multiplier": 0.01,
+    "_comment_multiplier": "Peso della penalizzazione mean(div_phi^2) nella loss totale. Valori piu' alti impongono campi piu' regolari."
+  },
+  "plot": {
+    "_comment": "Parametri del grafico finale.",
+    "x_min": -1.2,
+    "x_max": 1.2,
+    "y_min": -0.9,
+    "y_max": 0.9,
+    "grid_points": 240,
+    "output_file": "lemniscata_result.png"
+  }
+}
